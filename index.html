@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="A Museum of Almosts — a collection of stories about love, loss, mystery, and the moments that almost changed everything."
+  >
+
+  <meta name="theme-color" content="#171512">
+
+  <title>A Museum of Almosts — Stories That Stay</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --bg: #171512;
+      --surface: #211e19;
+      --text: #f4eee4;
+      --muted: #b7aa98;
+      --accent: #d9a96e;
+      --border: rgba(255,255,255,.12);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      background: rgba(23,21,18,.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-wrap {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: .03em;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--accent);
+      font-size: .7rem;
+      font-family: Arial, sans-serif;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-family: Arial, sans-serif;
+      font-size: .9rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 11px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(17,15,13,.94), rgba(17,15,13,.48)),
+        url("photo-01.jpg") center 45% / cover no-repeat,
+        #302820;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(720px, 100%);
+      padding-block: 90px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+      font-size: .75rem;
+      font-weight: bold;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      margin: 16px 0;
+      font-size: clamp(2.8rem, 7vw, 5.8rem);
+      line-height: 1.02;
+      font-weight: normal;
+    }
+
+    .hero h1 em {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 550px;
+      color: #ded3c4;
+      font-size: 1.08rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 11px 20px;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      background: var(--accent);
+      color: #21170e;
+      font-family: Arial, sans-serif;
+      font-size: .9rem;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      filter: brightness(1.08);
+    }
+
+    .button-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    section {
+      padding-block: 68px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    .section-heading h2 {
+      margin: 5px 0 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: normal;
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .feature-card,
+    .book-card {
+      min-width: 0;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .feature-cover,
+    .cover-link {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      background: #342b22;
+    }
+
+    .feature-cover {
+      aspect-ratio: 4 / 3;
+    }
+
+    .feature-cover img,
+    .cover-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s ease;
+    }
+
+    .feature-cover:hover img,
+    .cover-link:hover img {
+      transform: scale(1.045);
+    }
+
+    .cover-title {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 36px 18px 15px;
+      background: linear-gradient(transparent, rgba(0,0,0,.88));
+      color: white;
+      font-size: 1.35rem;
+    }
+
+    .feature-info {
+      padding: 17px;
+    }
+
+    .feature-info h3 {
+      margin: 0 0 5px;
+      font-size: 1.3rem;
+      font-weight: normal;
+    }
+
+    .feature-info p {
+      margin: 0;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: .85rem;
+    }
+
+    .library {
+      background: #1c1915;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .search-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 13px 15px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .search-row input:focus {
+      border-color: var(--accent);
+    }
+
+    .genre-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 26px;
+    }
+
+    .genre-chip {
+      padding: 8px 14px;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-family: Arial, sans-serif;
+      font-size: .82rem;
+    }
+
+    .genre-chip:hover,
+    .genre-chip.active {
+      color: #21170e;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .results-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: .88rem;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .cover-link {
+      aspect-ratio: 3 / 4;
+    }
+
+    .read-overlay {
+      position: absolute;
+      inset: auto 0 0;
+      padding: 18px 10px;
+      color: white;
+      background: linear-gradient(transparent, rgba(0,0,0,.8));
+      font-family: Arial, sans-serif;
+      font-size: .75rem;
+      font-weight: bold;
+      letter-spacing: .12em;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .cover-link:hover .read-overlay {
+      opacity: 1;
+    }
+
+    .book-info {
+      padding: 15px;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .genre-tag {
+      color: var(--accent);
+      font-family: Arial, sans-serif;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .like-button {
+      width: 35px;
+      height: 35px;
+      flex-shrink: 0;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+    }
+
+    .like-button.liked {
+      color: #f28d91;
+      border-color: #f28d91;
+    }
+
+    .book-title {
+      margin: 9px 0 4px;
+      font-size: 1.15rem;
+      line-height: 1.3;
+      font-weight: normal;
+    }
+
+    .book-author {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: .78rem;
+    }
+
+    .book-synopsis {
+      margin: 0;
+      color: #d1c6b8;
+      font-size: .91rem;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 35px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+    }
+
+    .empty-state p {
+      color: var(--muted);
+    }
+
+    .quote-section {
+      background:
+        linear-gradient(rgba(20,17,14,.82), rgba(20,17,14,.9)),
+        url("photo-02.jpg") center / cover no-repeat,
+        #302820;
+      text-align: center;
+    }
+
+    .quote-section blockquote {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: clamp(1.7rem, 4vw, 3.2rem);
+      line-height: 1.3;
+    }
+
+    .quote-section blockquote em {
+      color: var(--accent);
+    }
+
+    .quote-section p {
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 45px;
+    }
+
+    .about-grid h2 {
+      margin: 8px 0 15px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: normal;
+      line-height: 1.15;
+    }
+
+    .about-grid p {
+      color: var(--muted);
+    }
+
+    .about-image {
+      min-height: 320px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: #302820;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+    }
+
+    .site-footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-family: Arial, sans-serif;
+      font-size: .85rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .back-top {
+      color: var(--accent);
+    }
+
+    body.light {
+      --bg: #f5efe5;
+      --surface: #fffaf2;
+      --text: #2c241d;
+      --muted: #75685a;
+      --accent: #a66a2c;
+      --border: rgba(55,40,25,.17);
+    }
+
+    body.light .site-header {
+      background: rgba(245,239,229,.95);
+    }
+
+    body.light .hero {
+      background-image:
+        linear-gradient(90deg, rgba(25,20,15,.88), rgba(25,20,15,.4)),
+        url("photo-01.jpg");
+    }
+
+    body.light .library {
+      background: #eee5d8;
+    }
+
+    body.light .book-synopsis {
+      color: #5d5044;
+    }
+
+    #themeToggle {
+      min-width: 42px;
+      min-height: 40px;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+    }
+
+    @media (max-width: 900px) {
+      .book-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .featured-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-wrap {
+        min-height: 66px;
+      }
+
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 66px;
+        left: 0;
+        right: 0;
+        display: none;
+        align-items: stretch;
+        padding: 18px 4%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .hero {
+        min-height: 490px;
+      }
+
+      .hero-content {
+        padding-block: 65px;
+      }
+
+      section {
+        padding-block: 48px;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .book-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .book-info {
+        padding: 11px;
+      }
+
+      .book-title {
+        font-size: 1rem;
+      }
+
+      .book-synopsis {
+        font-size: .83rem;
+      }
+
+      .search-row {
+        flex-direction: column;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">
+        A Museum of Almosts
+        <span>Stories that stay</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="nav-links" id="mainNav" aria-label="Main navigation">
+        <a href="#top">Home</a>
+        <a href="#featured">Featured</a>
+        <a href="#library">Library</a>
+        <a href="#about">About</a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">
+          ☾
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">A collection of almosts</div>
+
+          <h1>
+            For the stories<br>
+            that <em>stay</em> with us.
+          </h1>
+
+          <p>
+            Some moments never become what we imagined.
+            Some words remain unsaid. Here, every almost
+            has a place to belong.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button" href="#library">Explore the stories ↗</a>
+            <a class="button button-outline" href="#about">Our little museum</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Handpicked for you</div>
+            <h2>Featured stories</h2>
+          </div>
+
+          <p>Little worlds waiting to be discovered.</p>
+        </div>
+
+        <div class="featured-grid" id="featuredGrid">
+          <article class="feature-card">
+            <a class="feature-cover" href="stories.html">
+              <img src="photo-01.jpg" alt="Rainy city at night">
+              <span class="cover-title">The Last Train Home</span>
+            </a>
+            <div class="feature-info">
+              <h3>The Last Train Home</h3>
+              <p>Romance · Mira Santos</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <a class="feature-cover" href="stories.html">
+              <img src="photo-02.jpg" alt="Moonlit atmosphere">
+              <span class="cover-title">Moonlight Academy</span>
+            </a>
+            <div class="feature-info">
+              <h3>Moonlight Academy</h3>
+              <p>Fantasy · J. Reyes</p>
+            </div>
+          </article>
+
+          <article class="feature-card">
+            <a class="feature-cover" href="stories.html">
+              <img src="photo-03.jpg" alt="Mysterious late-night scene">
+              <span class="cover-title">Unread at 2:17 AM</span>
+            </a>
+            <div class="feature-info">
+              <h3>Unread at 2:17 AM</h3>
+              <p>Mystery · Ari Villanueva</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="library" id="library">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Find your next read</div>
+            <h2>The story library</h2>
+          </div>
+          <p id="resultsCount">Browse the collection.</p>
+        </div>
+
+        <div class="search-row">
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search titles, authors, genres..."
+            aria-label="Search stories"
+          >
+          <button class="button" id="searchButton" type="button">
+            Search
+          </button>
+        </div>
+
+        <div class="genre-list" aria-label="Filter by genre">
+          <button class="genre-chip active" data-genre="All" type="button">All stories</button>
+          <button class="genre-chip" data-genre="Romance" type="button">Romance</button>
+          <button class="genre-chip" data-genre="Fantasy" type="button">Fantasy</button>
+          <button class="genre-chip" data-genre="Mystery" type="button">Mystery</button>
+          <button class="genre-chip" data-genre="Drama" type="button">Drama</button>
+          <button class="genre-chip" data-genre="Thriller" type="button">Thriller</button>
+          <button class="genre-chip" data-genre="Sci-Fi" type="button">Sci-Fi</button>
+          <button class="genre-chip" data-genre="Coming-of-age" type="button">Coming-of-age</button>
+          <button class="genre-chip" data-genre="Adventure" type="button">Adventure</button>
+          <button class="genre-chip" data-genre="Horror" type="button">Horror</button>
+        </div>
+
+        <div class="results-row">
+          <span>Stories for every mood</span>
+          <button
+            class="genre-chip"
+            id="clearFilters"
+            type="button"
+          >
+            Clear filters
+          </button>
+        </div>
+
+        <div class="book-grid" id="bookGrid">
+          <article class="book-card">
+            <a class="cover-link" href="story.html?id=1">
+              <img src="photo-01.jpg" alt="The Last Train Home cover">
+              <span class="read-overlay">READ STORY ↗</span>
+            </a>
+            <div class="book-info">
+              <div class="card-top">
+                <span class="genre-tag">Romance</span>
+              </div>
+              <h3 class="book-title">The Last Train Home</h3>
+              <p class="book-author">by Mira Santos</p>
+              <p class="book-synopsis">
+                Every night, Lia takes the last train and sees the same stranger.
+              </p>
+            </div>
+          </article>
+
+          <article class="book-card">
+            <a class="cover-link" href="story.html?id=2">
+              <img src="photo-02.jpg" alt="Moonlight Academy cover">
+              <span class="read-overlay">READ STORY ↗</span>
+            </a>
+            <div class="book-info">
+              <div class="card-top">
+                <span class="genre-tag">Fantasy</span>
+              </div>
+              <h3 class="book-title">Moonlight Academy</h3>
+              <p class="book-author">by J. Reyes</p>
+              <p class="book-synopsis">
+                A student discovers that her dreams are spells.
+              </p>
+            </div>
+          </article>
+
+          <article class="book-card">
+            <a class="cover-link" href="story.html?id=3">
+              <img src="photo-03.jpg" alt="Unread at 2:17 AM cover">
+              <span class="read-overlay">READ STORY ↗</span>
+            </a>
+            <div class="book-info">
+              <div class="card-top">
+                <span class="genre-tag">Mystery</span>
+              </div>
+              <h3 class="book-title">Unread at 2:17 AM</h3>
+              <p class="book-author">by Ari Villanueva</p>
+              <p class="book-synopsis">
+                Messages arrive from an account deleted years ago.
+              </p>
+            </div>
+          </article>
+
+          <article class="book-card">
+            <a class="cover-link" href="story.html?id=4">
+              <img src="photo-04.jpg" alt="Paper Hearts cover">
+              <span class="read-overlay">READ STORY ↗</span>
+            </a>
+            <div class="book-info">
+              <div class="card-top">
+                <span class="genre-tag">Drama</span>
+              </div>
+              <h3 class="book-title">Paper Hearts</h3>
+              <p class="book-author">by Nica Flores</p>
+              <p class="book-synopsis">
+                Two best frien

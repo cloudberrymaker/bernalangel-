@@ -1,0 +1,1 @@
+(()=>{const k='museum_demo_session';if(!sessionStorage.getItem(k))location.replace('login.html');window.museumAccount={logout(){sessionStorage.removeItem(k);location.replace('login.html')}};})();
